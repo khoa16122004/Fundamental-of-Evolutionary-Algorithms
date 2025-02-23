@@ -1,6 +1,5 @@
 import numpy as np
 from typing import List, Tuple
-import numpy as np
 
 def DE(func, bounds: List[Tuple[float, float]], pop_size: int, F: float, CR: float, max_iter: int):
     dim = len(bounds)
@@ -31,6 +30,69 @@ def DE(func, bounds: List[Tuple[float, float]], pop_size: int, F: float, CR: flo
     best_value = fitness[best_idx]
     return best_solution, best_value, history
 
+
+def GA(func, bounds: List[Tuple[float, float]], pop_size: int, CR: float, max_iter: int):
+    dim = len(bounds)
+    pop = np.random.uniform(low=[b[0] for b in bounds], high=[b[1] for b in bounds], size=(pop_size, dim))
+    history = []
+    
+    for iter in range(max_iter):
+        pool = []
+        for _ in range(pop_size // 2):
+            x1, x2 = pop[np.random.choice(pop_size, 2, replace=False)].copy()
+            
+            # Crossoverz
+            j_rand = np.random.randint(0, dim)
+            x1[j_rand], x2[j_rand] = x2[j_rand], x1[j_rand]
+            
+            # Mutation
+            mutation_mask = np.random.rand(dim) < CR
+            x1[mutation_mask] = np.random.uniform(
+                [bounds[d][0] for d in range(dim)],
+                [bounds[d][1] for d in range(dim)]
+            )[mutation_mask]
+            
+            pool.append(x1)
+            pool.append(x2)
+        
+        pool.extend(pop)
+        pool = np.array(pool)
+        
+        # print(f"iteration {iter}: {pool}")
+        # input()
+        
+        # Tournament Selection
+        pop = tournament_selection(pool, func)
+        
+        history.append(pop)
+    
+    best_idx = np.argmin([func(indx) for indx in pop])
+    best_solution = pop[best_idx]
+    best_value = func(best_solution)
+    
+    return best_solution, best_value, history
+
+def tournament_selection(pool, func):
+    N = len(pool) // 2
+    pop_selected = []
+    pool_fitness = np.array([func(ind) for ind in pool])
+    for i in range(2):
+        idxs = np.arange(pool.shape[0])
+        np.random.shuffle(idxs)   
+        current_fitness = pool_fitness[idxs]
+        current_pool = pool[idxs]
+        for j in range(0, pool.shape[0], 4):
+            idx = j + np.argmin(current_fitness[j : j + 4])
+            pop_selected.append(current_pool[idx])
+            
+    pop_selected = np.array(pop_selected)   
+    return pop_selected
+        
+             
+    
+        
+            
+        
 
 
         

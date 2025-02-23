@@ -49,7 +49,7 @@ def visualize_proccess(history, func):
         scat2.set_offsets(diff_vectors)
         return scat1, scat2
 
-    ani = animation.FuncAnimation(fig, update, frames=len(history), interval=100, repeat=True)
+    ani = animation.FuncAnimation(fig, update, frames=len(history), interval=100, repeat=False)
     plt.show()
 
     # return ani
