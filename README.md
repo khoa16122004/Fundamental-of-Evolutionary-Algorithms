@@ -16,8 +16,7 @@ cd script
 Then, run the following command to execute the evolutionary algorithm, or use the notebook located in the ```notebook``` directory.
 
 ```cmd
-python main.py [--function_name FUNCTION] \\ Choices: {"cigar", "sphere", 
-                             "ackley", "bohachevsky", "h1", "himmelblau", "rastrigin"}.
+python main.py [--function_name FUNCTION] \\ Choices: {"cigar", "sphere", "ackley", "bohachevsky", "h1", "himmelblau", "rastrigin"}.
                  [--pop_size POP_SIZE]
                  [--F F_VALUE] 
                  [--CR CR_VALUE] 
