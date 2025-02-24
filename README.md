@@ -1,4 +1,4 @@
-# Fundamental-of-Evolutionary-Computation
+# Fundamental-of-Evolutionary-Algorithms
 This repository provides a simple implementation of Genetic Algorithms (GA), Differential Evolution (DE), and Particle Swarm Optimization (PSO) for minimizing various benchmark functions. 
 The details of these algorithms are documented in the```Fundamental_Evolutionary_Algorithm.pdf``` file.
 
