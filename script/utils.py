@@ -5,9 +5,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from deap import benchmarks # benchmark library
 import matplotlib.animation as animation
-from scipy.optimize import rosen
-from IPython.display import HTML
-from algorithm import DE
+
 
 def take_fitness_function(benchmark_name: str):
     if hasattr(benchmarks, benchmark_name):
@@ -15,9 +13,6 @@ def take_fitness_function(benchmark_name: str):
     else:
         raise ValueError("No benchmark named %s" % benchmark_name)
 
-def take_algorithm(algorithm_name: str):
-    if algorithm_name == "DE":
-        return DE
 
 
 def visualize_proccess(history, func):
@@ -56,24 +51,39 @@ def visualize_proccess(history, func):
     # return ani
 
 def visualize_function(func):
-  X = np.arange(-5, 5, 0.1)
-  Y = np.arange(-5, 5, 0.1)
-  X, Y = np.meshgrid(X, Y)
-  Z = np.zeros(X.shape)
-  for i in range(X.shape[0]):
-    for j in range(X.shape[1]):
-      Z[i, j] = func([X[i, j], Y[i, j]])[0]
+    X = np.arange(-5, 5, 0.1)
+    Y = np.arange(-5, 5, 0.1)
+    X, Y = np.meshgrid(X, Y)
+    Z = np.zeros(X.shape)
+    for i in range(X.shape[0]):
+        for j in range(X.shape[1]):
+            Z[i, j] = func([X[i, j], Y[i, j]])[0]
 
-  fig = plt.figure(figsize=(15, 5))
-  ax1 = fig.add_subplot(121, projection='3d')
-  ax1.plot_surface(X, Y, Z, rstride=1, cstride=1, cmap=cm.jet, linewidth=0.1)
-  ax1.set_title("3D Surface Plot")
+    fig = plt.figure(figsize=(15, 5))
+    ax1 = fig.add_subplot(121, projection='3d')
+    ax1.plot_surface(X, Y, Z, rstride=1, cstride=1, cmap=cm.jet, linewidth=0.1)
+    ax1.set_title("3D Surface Plot")
 
-  ax2 = fig.add_subplot(122)
-  contour = ax2.contour(X, Y, Z, cmap=cm.jet, levels=30)
-  fig.colorbar(contour, ax=ax2)
-  ax2.set_title("Contour Plot")
+    ax2 = fig.add_subplot(122)
+    contour = ax2.contour(X, Y, Z, cmap=cm.jet, levels=30)
+    fig.colorbar(contour, ax=ax2)
+    ax2.set_title("Contour Plot")
 
-  plt.xlabel("x")
-  plt.ylabel("y")
-  plt.show()
+    plt.xlabel("x")
+    plt.ylabel("y")
+    plt.show()
+    
+def seed_everything(seed: int):
+    import random, os
+    import numpy as np
+    import torch
+    
+    random.seed(seed)
+    os.environ['PYTHONHASHSEED'] = str(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed(seed)
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = True
+    
+  
