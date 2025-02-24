@@ -13,7 +13,7 @@ if __name__ == "__main__":
     parser.add_argument("--CR", type=float, default=0.9)
     parser.add_argument("--max_iter", type=int, default=100)
     parser.add_argument("--visualize", type=bool, default=True)
-    parser.add_argument("--algorithm", type=str, default="GA", choices=["DE", "GA"])
+    parser.add_argument("--algorithm", type=str, default="GA", choices=[ "GA", "DE", "PSO"])
     args = parser.parse_args()
 
     func = take_fitness_function(args.function_name)
@@ -32,9 +32,15 @@ if __name__ == "__main__":
                                                 CR=args.CR, 
                                                 max_iter=args.max_iter)
     
-    
+    elif args.algorithm == "PSO":
+        best_solution, best_value, history = PSO(func=func, bounds=bounds,
+                                                 pop_size=args.pop_size,
+                                                 max_iter=args.max_iter)
+                                                 
+                                                 
     
     print("Best solution:", best_solution)
     print("Best value:", best_value)
     if args.visualize == True:
-        visualize_proccess(history, func)
+        ani = visualize_proccess(history, func)
+        ani.save(f"../gif/{args.algorithm}_{args.function_name}.gif")

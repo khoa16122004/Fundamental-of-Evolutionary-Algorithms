@@ -53,6 +53,7 @@ def visualize_proccess(history, func):
     plt.show()
 
     # return ani
+    return ani
 
 def visualize_function(func):
   X = np.arange(-5, 5, 0.1)
