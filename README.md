@@ -1,24 +1,28 @@
 # Fundamental-of-Evolutionary-Computation
-This repo is a simple implementation of Genetic Algorithms (GA), Difference Evolution (DE) and Particle Swarm Optimzation (PSO) in the problem of minimizing some benchmark function.
+This repository provides a simple implementation of Genetic Algorithms (GA), Differential Evolution (DE), and Particle Swarm Optimization (PSO) for minimizing various benchmark functions. 
+The details of these algorithms are documented in the```Fundamental_Evolutionary_Algorithm.pdf``` file.
+
+![image](gif/img.gif)
 
 # Usage 
-Usage: python script.py [--function_name FUNCTION] [--pop_size POP_SIZE] [--F F_VALUE] 
-                        [--CR CR_VALUE] [--max_iter MAX_ITER] [--visualize VISUALIZE] 
-                        [--algorithm ALGORITHM]
+First, clone this repository and install the [DEAP](https://github.com/DEAP/deap) library to use its benchmark functions as the fitness function.
 
-Arguments:
-  --function_name FUNCTION   The benchmark function to optimize. Choices: {"cigar", "sphere", 
+
+```cmd
+pip install deap
+cd script
+```
+
+Then, run the following command to execute the evolutionary algorithm, or use the notebook located in the ```notebook``` directory.
+
+```cmd
+python main.py [--function_name FUNCTION] \\ Choices: {"cigar", "sphere", 
                              "ackley", "bohachevsky", "h1", "himmelblau", "rastrigin"}.
-                             Default: "ackley".
-  --pop_size POP_SIZE        Population size (default: 50).
-  --F F_VALUE                Scaling factor for differential evolution (default: 0.8).
-  --CR CR_VALUE              Crossover probability (default: 0.9).
-  --max_iter MAX_ITER        Maximum number of iterations (default: 100).
-  --visualize VISUALIZE      Whether to visualize the optimization process (default: True).
-  --algorithm ALGORITHM      Optimization algorithm to use. Choices: {"GA", "DE", "PSO"}.
-                             Default: "GA".
-
-Example usage:
-  python script.py --function_name sphere --pop_size 100 --algorithm DE
-  python script.py --F 0.5 --CR 0.7 --max_iter 200 --visualize False
+                 [--pop_size POP_SIZE]
+                 [--F F_VALUE] 
+                 [--CR CR_VALUE] 
+                 [--max_iter MAX_ITER] 
+                 [--visualize VISUALIZE] 
+                 [--algorithm ALGORITHM] \\ Choices: {"GA", "DE", "PSO"}
+```
 

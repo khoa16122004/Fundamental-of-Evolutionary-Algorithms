@@ -51,9 +51,9 @@ def visualize_proccess(history, func):
 
     ani = animation.FuncAnimation(fig, update, frames=len(history), interval=100, repeat=False)
     plt.show()
+    return ani
 
     # return ani
-    return ani
 
 def visualize_function(func):
   X = np.arange(-5, 5, 0.1)
